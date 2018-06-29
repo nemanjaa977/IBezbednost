@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,6 +48,9 @@ public class AuthenticationController {
     
     @Autowired
     private DeviceProvider deviceProvider;
+    
+    @Autowired
+	PasswordEncoder passwordEncoder;
 
     //Ukoliko je aplikacija podignuta lokalno => localhost:8080/api/login
     //Metodi se prosledjuje objekat u kom se nalazi username i password korisnika
@@ -72,7 +76,7 @@ public class AuthenticationController {
         User user = (User)authentication.getPrincipal();
         String jws = tokenHelper.generateToken( user.getUsername(), device);
         int expiresIn = tokenHelper.getExpiredIn(device);
-        
+        System.out.println("Sifra :  "+passwordEncoder.encode("123"));
         // Vrati token kao odgovor na uspesno autentifikaciju
         return ResponseEntity.ok(new UserTokenState(jws, expiresIn));
     }
@@ -101,17 +105,4 @@ public class AuthenticationController {
         }
     }
 
-    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
-        userDetailsService.changePassword(passwordChanger.oldPassword, passwordChanger.newPassword);
-        Map<String, String> result = new HashMap<>();
-        result.put( "result", "success" );
-        return ResponseEntity.accepted().body(result);
-    }
-
-    static class PasswordChanger {
-        public String oldPassword;
-        public String newPassword;
-    }
 }

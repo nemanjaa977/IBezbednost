@@ -6,6 +6,6 @@ import ib.project.entity.User;
 
 public interface UserService {
     User findById(Long id);
-    User findByUsername(String username);
+    User findByEmail(String username);
     List<User> findAll ();
 }

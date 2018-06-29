@@ -12,11 +12,14 @@ import ib.project.rest.DemoController;
 
 @SpringBootApplication
 public class DemoApplication {
+	
+	
 
 	private static String DATA_DIR_PATH;
 	static {
 		ResourceBundle rb = ResourceBundle.getBundle("application");
 		DATA_DIR_PATH = rb.getString("dataDir");
+		
 	}
 	
 	public static void main(String[] args) {

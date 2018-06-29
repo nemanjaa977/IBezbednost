@@ -1,0 +1,81 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	     -o-box-sizing: border-box;
+			box-sizing: border-box;
+}
+
+body{
+ 	background: white; 
+}
+
+.navBar {
+  	overflow: hidden;
+  	background-color: #00cc66;
+  	height: auto;
+}
+
+.navBar a {
+  	float: left;
+  	display: block;
+  	color: white;
+  	text-align: center;
+  	padding: 14px 16px;
+  	text-decoration: none;
+  	font-size: 20px;
+  	opacity: 0.8;
+  	border-right: 1px solid white; 
+}
+
+.navBar a:hover {
+  	color: white;
+  	opacity: 1;
+}
+
+.login-box{
+	padding: 120px 200px 2px 200px;
+	text-align: center;
+}
+
+.login-box #naslov{
+	color: #00cc66;
+	font-size: 60px;
+	margin-bottom: 2%;
+} 
+
+.textbox{
+	font-size: 40px;
+	color: gray;
+}
+
+.textbox #userEmailInput{
+	font-size: 30px;
+	border: none;
+	border-bottom: 1px solid gray; 
+	text-align: center;
+}
+
+.textbox #passwordInput{
+	font-size: 30px;
+	border: none;
+	border-bottom: 1px solid gray; 
+	text-align: center;
+}
+
+#loginSubmit{
+	border: none;
+	color: white;
+	background: #00cc66;
+	font-size: 30px;
+	margin-top: 2%;
+	width: 170px;
+	cursor: pointer;
+	opacity: 0.9;
+	height: auto;
+}
+
+#loginSubmit:hover{
+	opacity: 1;
+}
