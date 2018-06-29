@@ -1,3 +1,39 @@
+$(document).ready(function(){
+	var email = $('#userEmailInput');
+	var password = $('#passwordInput');
+	
+	$('body').on('click', '#loginSubmit',function(event){
+	
+		var emailIn = email.val();
+		var passIn = password.val();
+		var json = {
+				'email': emailIn,
+				'password': passIn
+		}
+			
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url :"http://localhost:8443/auth/login",
+			data :  JSON.stringify(json),
+			dataType : 'json',
+			success : function(data) {
+				console.log(data);
+				localStorage.setItem("token",data.access_token);
+				window.location.replace('home.html');
+			},
+			error : function(e) {
+				alert("Error!")
+				console.log("ERROR: ", e);
+			}
+		});
+		
+		event.preventDefault();
+		return false;
+	
+	});
+});
+
 function download() {
 
 	var xhr = new XMLHttpRequest();

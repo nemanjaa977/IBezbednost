@@ -18,7 +18,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -39,14 +41,14 @@ public class User implements UserDetails {
     @Column(name = "active")
     private boolean active;
     
-    @Column(name = "certificate")
-    private boolean sertifikat;
+    @Column(name = "certificate" ,nullable=true)
+    private String sertifikat;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
-    private List<Authority> authorities;
+    private Set<Authority> authorities=new HashSet<>();
 
     public Long getId() {
         return id;
@@ -64,11 +66,13 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
-    }
+  
 
-    @Override
+    public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
+	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
     }
@@ -94,11 +98,13 @@ public class User implements UserDetails {
 		this.active = active;
 	}
 
-	public boolean isSertifikat() {
+
+
+	public String getSertifikat() {
 		return sertifikat;
 	}
 
-	public void setSertifikat(boolean sertifikat) {
+	public void setSertifikat(String sertifikat) {
 		this.sertifikat = sertifikat;
 	}
 

@@ -4,27 +4,28 @@ package ib.project.security.auth;
  * Created by fanjin on 2017-10-09.
  */
 public class JwtAuthenticationRequest {
-    private String username;
+    private String email;
     private String password;
 
     public JwtAuthenticationRequest() {
         super();
     }
+    
+    public JwtAuthenticationRequest(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
 
-    public JwtAuthenticationRequest(String username, String password) {
-        this.setUsername(username);
-        this.setPassword(password);
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getUsername() {
-        return this.username;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
+	public String getPassword() {
         return this.password;
     }
 

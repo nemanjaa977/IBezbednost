@@ -3,8 +3,10 @@ package ib.project;
 import java.io.File;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ib.project.rest.DemoController;
 
@@ -12,7 +14,6 @@ import ib.project.rest.DemoController;
 public class DemoApplication {
 
 	private static String DATA_DIR_PATH;
-	
 	static {
 		ResourceBundle rb = ResourceBundle.getBundle("application");
 		DATA_DIR_PATH = rb.getString("dataDir");
@@ -23,6 +24,7 @@ public class DemoApplication {
 		
 		//create files folder in target/classes
 		new File(DemoController.class.getProtectionDomain().getCodeSource().getLocation().getPath() + File.separator + DATA_DIR_PATH).mkdirs();
+		
 	}
 }
  

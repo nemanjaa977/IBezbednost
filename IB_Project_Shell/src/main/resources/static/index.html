@@ -2,14 +2,26 @@
 <html>
 
 <head>
-<script type="text/javascript" src="js/main.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Home</title>
+	<script src="jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-	<a href="./user_content/cat.jpg" download>Download link for static
-		files</a>
-	<button type="button"  onclick="download()">Download link for
-		target/files files</button>
+	<div class="navBar"></div>
+	<div class="login-box">
+		<p id='naslov'>Log in</p>
+		<div class="textbox">
+			<i class="fa fa-user"></i>
+			<input type="text" id="userEmailInput" placeholder="Enter email">
+		</div>
+		<div class="textbox">
+			<i class="fa fa-lock"></i>
+			<input type="password" id="passwordInput" placeholder="Enter password">
+		</div>
+	<input class="btn" type="submit" id="loginSubmit" value="Sign in">
+	</div>
 </body>
 
 </html>
