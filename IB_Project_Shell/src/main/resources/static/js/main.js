@@ -37,18 +37,6 @@ $(document).ready(function(){
 	});
 });
 
-function f(){
-	var input = $('#search').val().toUpperCase();
-	$(".column").each(function(){
-		  if($(this).html().toUpperCase().includes(input)){
-		    $(this).show();
-		  }
-		  else{
-			$(this).hide();
-		  }
-	});
-}
-
 function download() {
 
 	var xhr = new XMLHttpRequest();

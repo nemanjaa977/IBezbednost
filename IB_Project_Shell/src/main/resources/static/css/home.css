@@ -57,3 +57,28 @@ body{
 .row{
 	padding: 10px 200px 2px 200px;
 }
+
+.search-container{
+	padding: 10px 200px 2px 200px;
+}
+
+.search-container #search{
+	font-size: 20px;
+	padding: 1px;
+	color: gray;
+}
+
+.row .column{
+	
+}
+
+.column #emailUser{
+	font-size: 25px;
+	text-decoration: none;
+	cursor: pointer;
+	color: gray;
+}
+
+#emailUser:hover{
+	color: #00cc66;
+}
