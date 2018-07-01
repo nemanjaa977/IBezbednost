@@ -69,7 +69,7 @@ body{
 }
 
 .row .column{
-	
+	margin: 10px;
 }
 
 .column #emailUser{
@@ -81,4 +81,23 @@ body{
 
 #emailUser:hover{
 	color: #00cc66;
+}
+
+.column #downloadSertifikat{
+	color: #00cc66;
+	background: white;
+	font-size: 17px;
+	cursor: pointer;
+	border: 1px solid #00cc66;
+	margin: 2px;
+}
+
+#setActiveUser{
+	color: #00cc66;
+	background: white;
+	font-size: 17px;
+	cursor: pointer;
+	border: 1px solid #00cc66;
+	margin-left: 11px;
+	width: 153px;
 }

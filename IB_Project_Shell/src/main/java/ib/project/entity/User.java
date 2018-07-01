@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,14 +26,13 @@ import java.util.Set;
 
 @Entity
 @Table(name="users")
-public class User implements UserDetails {
+public class User implements Serializable,UserDetails {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -48,9 +49,32 @@ public class User implements UserDetails {
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
-    private Set<Authority> authorities=new HashSet<>();
+    private Set<Authority> user_authorities=new HashSet<>();
 
-    public Long getId() {
+    public User() {
+    	
+    }
+    
+
+
+
+
+	public User(Long id, String password, String email, boolean active, String sertifikat,
+			Set<Authority> user_authorities) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.email = email;
+		this.active = active;
+		this.sertifikat = sertifikat;
+		this.user_authorities = user_authorities;
+	}
+
+
+
+
+
+	public Long getId() {
         return id;
     }
 
@@ -68,13 +92,19 @@ public class User implements UserDetails {
 
   
 
-    public void setAuthorities(Set<Authority> authorities) {
-		this.authorities = authorities;
+    
+
+	public Set<Authority> getUser_authorities() {
+		return user_authorities;
+	}
+
+	public void setUser_authorities(Set<Authority> user_authorities) {
+		this.user_authorities = user_authorities;
 	}
 
 	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        return this.user_authorities;
     }
 
     public String getEmail() {

@@ -18,18 +18,25 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User findByEmail( String username ) throws UsernameNotFoundException {
+    public User findByEmail( String username ) {
         User u = userRepository.findByEmail( username );
         return u;
     }
-
-    public User findById( Long id ) throws AccessDeniedException {
+    
+    @Override
+    public User findById( Long id ) {
         User u = userRepository.findOne( id );
         return u;
     }
-
-    public List<User> findAll() throws AccessDeniedException {
+    
+    @Override
+    public List<User> findAll() {
         List<User> result = userRepository.findAll();
         return result;
     }
+    
+    @Override 
+	public User save(User user) {
+		return userRepository.save(user);
+	}
 }

@@ -6,5 +6,6 @@ import ib.project.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail( String username );
+//    User findOne(Long id);
 }
 
