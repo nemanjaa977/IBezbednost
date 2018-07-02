@@ -77,14 +77,21 @@ public class UserController {
 		return new ResponseEntity<User>(userr, HttpStatus.CREATED);
 	}
     
-    @PutMapping(value="/edit/{id}", consumes="application/json")
-	public ResponseEntity<UserDTO> updateUser(UserDTO userDTO ,@PathParam("id") Long id){
-		User user = userService.findById(id);
+    @PutMapping(value="/edit")
+	public ResponseEntity<User> updateUser(@RequestBody String email){
+    	System.out.println(email);
+		User user = userService.findByEmail(email);
 		System.out.println("Pronadjeni user: " + user);
 		if(user == null)
-			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
 		user.setActive(true);
 		user = userService.save(user);
-		return new ResponseEntity<UserDTO>(new UserDTO(user),HttpStatus.OK);
+		return new ResponseEntity<User>(user,HttpStatus.OK);
 	}
+    
+    @RequestMapping( method = RequestMethod.POST, value= "/search")
+    public List<User> loadSearch(@RequestBody String text) {
+    	System.out.println(text);
+        return this.userService.findAllBySearch(text);
+    }
 }

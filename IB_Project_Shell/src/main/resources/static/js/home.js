@@ -39,7 +39,7 @@ $(document).ready(function(){
 	  					"<p></p>"
 	  					);
 				if(admin == true && user.active == false){
-					row.append("<button id='setActiveUser' name='"+user.id+"'>set to active</button>" +
+					row.append("<button id='setActiveUser' name='"+user.email+"'>set to active</button>" +
 	  				"</div>");
 				}else{
 					row.append(
@@ -62,11 +62,12 @@ $(document).ready(function(){
 	});
 	
 	$('body').on('click', '#setActiveUser',function(event){
-		var emailID = $(this).attr('name');
-		console.log("Prosledjeni id: " + emailID);
+		var email = $(this).attr('name');
+		console.log("Prosledjeni email: " + email);
 		$.ajax({
-			url: "http://localhost:8443/api/user/edit/"+emailID,
+			url: "http://localhost:8443/api/user/edit",
 			type: 'PUT',
+			data : email,
 			headers: { "Authorization": "Bearer " + token},
 			contentType : "application/json",
 			dataType: 'json',
@@ -81,17 +82,58 @@ $(document).ready(function(){
 		event.preventDefault();
 		return false;
 	});
+	
+	$('body').on('click', '#buttonSearch',function(event){
+		var text = $('#search').val();
+		console.log(text);
+		$.ajax({
+			url: "http://localhost:8443/api/user/search",
+			type: 'POST',
+			data : text,
+			contentType : "application/json",
+			dataType: 'json',
+			success : function(data) {
+				row.empty();
+				for(var i=0; i<data.length; i++){
+					user = data[i];
+					row.append("<div class='column'>" + 
+		  					"<a id='emailUser' href='#'>"+user.email+"</a><br>" +
+		  					"<button id='downloadSertifikat'>download certificate</button><br>" +
+		  					"<p></p>"
+		  					);
+					if(admin == true && user.active == false){
+						row.append("<button id='setActiveUser' name='"+user.email+"'>set to active</button>" +
+		  				"</div>");
+					}else{
+						row.append(
+		  				"</div>");
+					}			
+				}	
+			},
+			error : function(e) {
+				console.log("ERROR: ", e);
+			}
+		});
+//		$.get("http://localhost:8443/api/user/search",{'text': text},function(data){
+//			row.empty();
+//			for(var i=0; i<data.length; i++){
+//				user = data[i];
+//				row.append("<div class='column'>" + 
+//	  					"<a id='emailUser' href='#'>"+user.email+"</a><br>" +
+//	  					"<button id='downloadSertifikat'>download certificate</button><br>" +
+//	  					"<p></p>"
+//	  					);
+//				if(admin == true && user.active == false){
+//					row.append("<button id='setActiveUser' name='"+user.email+"'>set to active</button>" +
+//	  				"</div>");
+//				}else{
+//					row.append(
+//	  				"</div>");
+//				}			
+//			}		
+//		});
+		event.preventDefault();
+		return false;
+	});
 
 });
-
-function f(){
-	var input = $('#search').val().toUpperCase();
-	$(".column").each(function(){
-		  if($(this).html().toUpperCase().includes(input)){
-		    $(this).show();
-		  }
-		  else{
-			$(this).hide();
-		  }
-	});
-}
