@@ -90,6 +90,18 @@ body{
 	cursor: pointer;
 	border: 1px solid #00cc66;
 	margin: 2px;
+	text-decoration: none;
+	
+}
+
+.column #downloadJKS{
+	color: #00cc66;
+	background: white;
+	font-size: 17px;
+	cursor: pointer;
+	border: 1px solid #00cc66;
+	margin: 2px;
+	text-decoration: none;
 }
 
 #setActiveUser{
@@ -100,4 +112,13 @@ body{
 	border: 1px solid #00cc66;
 	margin-left: 11px;
 	width: 153px;
+}
+
+#buttonSearch{
+	color: #00cc66;
+	background: white;
+	font-size: 24px;
+	cursor: pointer;
+	border: 1px solid #00cc66;
+	margin-left: 5px;
 }

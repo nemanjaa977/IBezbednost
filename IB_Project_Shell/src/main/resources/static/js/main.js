@@ -17,7 +17,7 @@ $(document).ready(function(){
 		$.ajax({
 			type : "POST",
 			contentType : "application/json",
-			url :"http://localhost:8443/auth/login",
+			url :"https://localhost:8443/auth/login",
 			data :  JSON.stringify(json),
 			dataType : 'json',
 			success : function(data) {
@@ -55,25 +55,3 @@ $(document).ready(function(){
 	
 	});
 });
-
-function download() {
-
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', "/api/demo/download", true);
-	xhr.responseType = 'blob';
-
-	xhr.onload = function(e) {
-		if (this.status == 200) {
-			var blob = this.response;
-			console.log(blob);
-			var a = document.createElement('a');
-			var url = window.URL.createObjectURL(blob);
-			a.href = url;
-			a.download = xhr.getResponseHeader('filename');
-			a.click();
-			window.URL.revokeObjectURL(url);
-		}
-	};
-
-	xhr.send();
-};

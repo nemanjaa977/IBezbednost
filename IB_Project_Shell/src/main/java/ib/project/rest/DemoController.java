@@ -12,13 +12,18 @@ import java.util.ResourceBundle;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import ib.project.entity.User;
+import ib.project.service.UserService;
 
 @RestController
 @RequestMapping(value = "/api/demo", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,6 +33,9 @@ public class DemoController {
 
 	@Autowired
 	ServletContext context;
+	
+	@Autowired
+	UserService userService;
 
 	static {
 		ResourceBundle rb = ResourceBundle.getBundle("application");
@@ -47,27 +55,53 @@ public class DemoController {
 		return new ResponseEntity<String>(path.toString(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/download", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> download() {
-
-		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-
-		URL urlPath = classloader.getResource(DATA_DIR_PATH + File.separator + "demo.txt");
-		File file = null;
-		try {
-			file = new File(urlPath.getFile());
-		}
-		catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} 
-		
+//	@RequestMapping(value = "/download", method = RequestMethod.GET)
+//	public ResponseEntity<byte[]> download() {
+//
+//		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+//
+//		URL urlPath = classloader.getResource(DATA_DIR_PATH + File.separator + "demo.txt");
+//		File file = null;
+//		try {
+//			file = new File(urlPath.getFile());
+//		}
+//		catch (Exception e) {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		} 
+//		
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(MediaType.APPLICATION_JSON);
+//		headers.add("filename", "demo.txt");
+//
+//		byte[] bFile = readBytesFromFile(file.toString());
+//
+//		return ResponseEntity.ok().headers(headers).body(bFile);
+//	}
+	
+	@RequestMapping(value="/download/{id}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> download(@PathVariable("id") Long id){
+		User user = userService.findById(id);
+		File file = new File("C:\\Users\\nemanja97\\git\\IBezbednost\\IB_Project_Shell\\src\\main\\resources\\static\\user_content\\"+user.getEmail()+".cer");
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("filename", "demo.txt");
-
+		headers.add("filename", user.getEmail()+".cer");
 		byte[] bFile = readBytesFromFile(file.toString());
-
+		
 		return ResponseEntity.ok().headers(headers).body(bFile);
+		
+	}
+	
+	@RequestMapping(value="/downloadjks/{id}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> downloadjks(@PathVariable("id") Long id){
+		User user = userService.findById(id);
+		File file = new File("C:\\Users\\nemanja97\\git\\IBezbednost\\IB_Project_Shell\\src\\main\\resources\\static\\user_content\\"+user.getEmail()+".jks");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("filename", user.getEmail()+".jks");
+		byte[] bFile = readBytesFromFile(file.toString());
+		
+		return ResponseEntity.ok().headers(headers).body(bFile);
+		
 	}
 
 	private static byte[] readBytesFromFile(String filePath) {

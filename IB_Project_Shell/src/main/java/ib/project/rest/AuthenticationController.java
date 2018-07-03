@@ -81,28 +81,4 @@ public class AuthenticationController {
         return ResponseEntity.ok(new UserTokenState(jws, expiresIn));
     }
 
-    @RequestMapping(value = "/refresh", method = RequestMethod.POST)
-    public ResponseEntity<?> refreshAuthenticationToken(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Principal principal
-            ) {
-
-        String authToken = tokenHelper.getToken( request );
-
-        Device device = deviceProvider.getCurrentDevice(request);
-
-        if (authToken != null && principal != null) {
-
-            // TODO check user password last update
-            String refreshedToken = tokenHelper.refreshToken(authToken, device);
-            int expiresIn = tokenHelper.getExpiredIn(device);
-
-            return ResponseEntity.ok(new UserTokenState(refreshedToken, expiresIn));
-        } else {
-            UserTokenState userTokenState = new UserTokenState();
-            return ResponseEntity.accepted().body(userTokenState);
-        }
-    }
-
 }
